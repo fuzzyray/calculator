@@ -9,7 +9,7 @@ function App() {
         <p>Javascript Calculator</p>
         <p>Minimum screen width of 360px required</p>
       </div>
-      <Calculator />
+      <Calculator/>
     </div>
   );
 }

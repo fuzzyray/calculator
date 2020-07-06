@@ -3,17 +3,18 @@
   align-items: center;
   justify-content: right;
   text-align: right;
-  font-size: 300%;
+  font-size: 40px;
   margin: 0.5rem 0.5rem;
-  border: 1px solid black;
-  font-family: monospace;
+  font-family: 'Oxygen Mono', monospace;
   height: 90px;
   width: 95%;
   background-color: #777777;
+  border-radius: 8px;
 }
 
 .Display p {
   width: 100%;
   color: white;
   margin: 0;
+  padding: 4px;
 }

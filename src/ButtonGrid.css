@@ -16,12 +16,12 @@
 }
 
 .button-xlarge {
-  font-size: 180%;
+  font-size: 30px;
   border-radius: 80px;
 }
 
 .button-operator {
-  background-color: darkgrey;
+  background-color: #a1a1a1;
 }
 
 #title {
