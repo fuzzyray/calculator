@@ -1,0 +1,108 @@
+.ButtonGrid {
+  display: grid;
+  height: 450px;
+  grid-auto-columns: 80px;
+  grid-gap: 8px;
+  grid-auto-rows: 80px;
+  grid-template-areas:
+    'clear title title divide'
+    'seven eight nine multiply'
+    'four five six subtract'
+    'one two three add'
+    'zero zero decimal equals';
+  justify-content: center;
+  align-content: center;
+  background-color: #555555;
+}
+
+.button-xlarge {
+  font-size: 180%;
+  border-radius: 80px;
+}
+
+.button-operator {
+  background-color: darkgrey;
+}
+
+#title {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid-area: title;
+  font-size: 150%;
+  color: white;
+}
+
+#title * {
+  margin: 0;
+  padding: 8px;
+}
+
+#clear {
+  grid-area: clear;
+}
+
+#divide {
+  grid-area: divide;
+}
+
+#seven {
+  grid-area: seven;
+}
+
+#eight {
+  grid-area: eight;
+}
+
+#nine {
+  grid-area: nine;
+}
+
+#multiply {
+  grid-area: multiply;
+}
+
+#four {
+  grid-area: four;
+}
+
+#five {
+  grid-area: five;
+}
+
+#six {
+  grid-area: six;
+}
+
+#minus {
+  grid-area: subtract;
+}
+
+#one {
+  grid-area: one;
+}
+
+#two {
+  grid-area: two;
+}
+
+#three {
+  grid-area: three;
+}
+
+#add {
+  grid-area: add;
+}
+
+#zero {
+  grid-area: zero;
+}
+
+#decimal {
+  grid-area: decimal;
+}
+
+#equals {
+  grid-area: equals;
+}
