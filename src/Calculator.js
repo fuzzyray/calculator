@@ -5,6 +5,14 @@ import ButtonGrid from './ButtonGrid'
 
 const doCalc = (first, second, op) => {
   // TODO: Need to fix for precision
+  // Handle case where started a negative number
+  if (first === '-' && second === '-') {
+    return '0'
+  } else if (first === '-') {
+    return second
+  } else if (second === '-') {
+    return first
+  }
   const firstNum = parseFloat(first)
   const secondNum = parseFloat(second)
   let result
@@ -22,7 +30,7 @@ const doCalc = (first, second, op) => {
       result = firstNum - secondNum
       break
     default:
-      result = undefined
+      return undefined
   }
   return result.toString()
 }
@@ -30,6 +38,7 @@ const doCalc = (first, second, op) => {
 /*
 Finite State Machine taken and modified from:
 https://medium.com/@rvunabandi/making-a-calculator-in-javascript-64193ea6a492
+Code was not used or looked at, only the state machine description was used.
 
 FSM States:
 1. initial
@@ -39,7 +48,7 @@ FSM States:
 5. trailingOperator
 6. trailingInput
 7. equality
- */
+*/
 
 const INITIALSTATE = {
   state: 'initial',
@@ -206,7 +215,7 @@ class Calculator extends React.Component {
   }
 
   operatorState = (input) => {
-    if (digitRegex.test(input)) {
+    if (digitRegex.test(input) || input === '-') {
       this.setState({
         state: 'secondaryInput',
         second: updateDigitInput('0', input),
@@ -288,7 +297,7 @@ class Calculator extends React.Component {
   }
 
   trailingState = (input) => {
-    if (digitRegex.test(input)) {
+    if (digitRegex.test(input) || input === '-') {
       this.setState({
         state: 'trailingInput',
         trailing: updateDigitInput('0', input),
@@ -333,7 +342,7 @@ class Calculator extends React.Component {
 
   trailingInputState = (input) => {
     if (digitRegex.test(input)) {
-      let trailingNum = updateDigitInput(this.state.trailing, input);
+      let trailingNum = updateDigitInput(this.state.trailing, input)
       if (trailingNum.length < 15) {
         this.setState({
           trailing: trailingNum,
@@ -387,53 +396,51 @@ class Calculator extends React.Component {
     }
   }
 
-
-equalityState = (input) => {
-  if (input === '=') {
-    const result = doCalc(this.state.first, this.state.second, this.state.op1)
-    this.setState({
-      first: result,
-    })
-  } else if (operatorRegex.test(input)) {
-    this.setState({
-      state: 'operator',
-      second: this.state.first,
-      op1: input,
-    })
-  } else if (digitRegex.test(input)) {
-    this.setState({
-      state: 'firstInput',
-      first: updateDigitInput('0', input),
-      display: 'first',
-    })
-  } else {
-    console.error('equalityState: Bad Input', input)
-    this.setState({
-      state: 'error',
-      display: 'errorMsg',
-      errorMsg: 'Unexpected Input',
-    })
+  equalityState = (input) => {
+    if (input === '=') {
+      const result = doCalc(this.state.first, this.state.second, this.state.op1)
+      this.setState({
+        first: result,
+      })
+    } else if (operatorRegex.test(input)) {
+      this.setState({
+        state: 'operator',
+        second: this.state.first,
+        op1: input,
+      })
+    } else if (digitRegex.test(input)) {
+      this.setState({
+        state: 'firstInput',
+        first: updateDigitInput('0', input),
+        second: '0',
+        display: 'first',
+      })
+    } else {
+      console.error('equalityState: Bad Input', input)
+      this.setState({
+        state: 'error',
+        display: 'errorMsg',
+        errorMsg: 'Unexpected Input',
+      })
+    }
   }
-}
 
-errorState = () => {
-  console.error(this.state)
-}
+  errorState = () => {
+    console.error(this.state)
+  }
 
-componentDidUpdate(prevProps, prevState, snapshot)
-{
-  console.log('State:', this.state, 'prevState:', prevState)
-}
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    console.log('State:', this.state, 'prevState:', prevState)
+  }
 
-render()
-{
-  return (
-    <div className="Calculator">
-      <Display value={this.state[this.state.display]}/>
-      <ButtonGrid onClick={this.handleClick}/>
-    </div>
-  )
-}
+  render () {
+    return (
+      <div className="Calculator">
+        <Display value={this.state[this.state.display]}/>
+        <ButtonGrid onClick={this.handleClick}/>
+      </div>
+    )
+  }
 }
 
 export default Calculator
