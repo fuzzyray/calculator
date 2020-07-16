@@ -91,7 +91,7 @@ class Calculator extends React.Component {
 
   componentDidMount () {
     window.addEventListener('keyup', this.handleKeyUp)
-    console.log('state:', this.state)
+    // console.log('state:', this.state)
   }
 
   componentWillUnmount () {
@@ -116,7 +116,7 @@ class Calculator extends React.Component {
     // Clear button pressed, reset to initial state
     if (keyValue === 'C') {
       this.setState(INITIALSTATE)
-      console.clear()
+      //console.clear()
       return
     }
     switch (this.state.state) {
@@ -429,9 +429,11 @@ class Calculator extends React.Component {
     console.error(this.state)
   }
 
+  /*
   componentDidUpdate (prevProps, prevState, snapshot) {
-    console.log('State:', this.state, 'prevState:', prevState)
+    console.log('State:', this.state)
   }
+  */
 
   render () {
     return (
